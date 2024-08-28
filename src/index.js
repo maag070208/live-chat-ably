@@ -1,13 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import * as Ably from "ably";
+import { AblyProvider, ChannelProvider} from "ably/react";
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const client = new Ably.Realtime({
+  key: "VdYRNg.ok6kkg:qT6aWfjI4ZWTPDEO6F9lXnhFYs9iPAO2g5oSqmvuzY0",
+});
+
 root.render(
   <React.StrictMode>
-    <App />
+    <AblyProvider client={client}>
+      <ChannelProvider channelName="test-message">
+        <App />
+      </ChannelProvider>
+    </AblyProvider>
   </React.StrictMode>
 );
 
